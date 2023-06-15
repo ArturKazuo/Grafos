@@ -27,11 +27,10 @@ public class Main {
 
 
         for(int i=0; i<grafo[origem].size(); i++){
-            int destino = arestasSaida.peek();
+            int destino = arestasSaida.get(i);
             if(descobertos.contains(new Aresta(origem, destino))){
                 count++;
             }
-            arestasSaida.remove();
         }
 
         if(count == arestasSaida.size()){
@@ -41,19 +40,19 @@ public class Main {
         return bool;
     }
 
-    // public static boolean jaExisteASerexplorado(int vertice, Queue<Vertice> aSerExplorado){
+    public static boolean jaExisteASerexplorado(int vertice, Queue<Vertice> aSerExplorado){
 
-    //     boolean bool = false;
+        boolean bool = false;
 
-    //     for(Vertice v : aSerExplorado){
-    //         if(v.vertice == vertice){
-    //             bool = true;
-    //         }
-    //     }
+        for(Vertice v : aSerExplorado){
+            if(v.vertice == vertice){
+                bool = true;
+            }
+        }
 
-    //     return bool;
+        return bool;
 
-    // }
+    }
 
     public static void acharCaminhos(int origem, int destino, int m){
 
@@ -76,8 +75,11 @@ public class Main {
         // }
 
         // System.out.println("foi2");
+
+        // grafo[atual].forEach((element) -> System.out.print(element + " "));
  
-        while(aindaSaida(descobertos, origem) && aSerExplorados.size() > 0){
+        // while(aindaSaida(descobertos, origem) && aSerExplorados.size() > 0){
+        while(aindaSaida(descobertos, origem)){
 
             // System.out.println("foi");
             
@@ -90,7 +92,7 @@ public class Main {
             //     System.out.println("aqui: "+i);
             // }
 
-            grafo[atual].forEach((element) -> System.out.print(element + " "));
+            // grafo[atual].forEach((element) -> System.out.print(element + " "));
 
             // System.out.println("foi4");
             
@@ -119,13 +121,13 @@ public class Main {
                     else{
                         // System.out.println("wdadwna");
                         // if(aSerExplorados.contains(new Vertice(i, -1))){
-                        // if(jaExisteASerexplorado(i, aSerExplorados)){
+                        if(jaExisteASerexplorado(i, aSerExplorados)){
 
-                        // }
-                        // else{
+                        }
+                        else{
                             aSerExplorados.add(new Vertice(i, pesoAtual+1));
                             descobertos.add(new Aresta(atual, i));
-                        // }
+                        }
                     }
                 }
             }
